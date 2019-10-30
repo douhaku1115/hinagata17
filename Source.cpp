@@ -10,6 +10,7 @@
 #include "Rect.h"
 
 
+#include "tex.h"
 using namespace glm;
 #define BALL_MAX 2
 ivec2 windowSize = { 800, 600 };
@@ -33,32 +34,9 @@ void display(void) {
 	glMatrixMode(GL_MODELVIEW);//GLenum mode
 	glLoadIdentity();
 	
-	unsigned char pixels[] = { 0xff,0x00,0x00,0x00,0xff,0x00,
-		0x00,0x00,0xff,0xff,0xff,0x00 };
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, //GLenum pname,
-		1);                        //GLint param);
-	glTexImage2D(
-		GL_TEXTURE_2D,	//GLenum target,
-		0,	//GLint level, 
-		GL_RGB,	//GLint internalformat, 
-		2,	//GLsizei width, 
-		2,	//GLsizei height, 
-		0,	//GLint border, 
-		GL_RGB,	//GLenum format, 
-		GL_UNSIGNED_BYTE,	//GLenum type, 
-		pixels);//const GLvoid * pixels););
-	glTexParameteri(
-		GL_TEXTURE_2D,//GLenum target, 
-		GL_TEXTURE_MAG_FILTER,//GLenum pname, 
-		GL_NEAREST);	//GLint param);
-	glTexParameteri(
-		GL_TEXTURE_2D,//GLenum target, 
-		GL_TEXTURE_MIN_FILTER,//GLenum pname, 
-		GL_NEAREST);	//GLint param);
 	glEnable(GL_TEXTURE_2D);  //GLenum cap);
 	      
-	Rect rect = { {100,100},{400,400} };
+	Rect rect = { {0,0},{448,256} };
 	rect.draw();
 
 	fontBegin();
@@ -143,6 +121,7 @@ int main(int argc, char* argv[]) {
 	glutInitWindowPosition(640,0);
 	glutInitWindowSize(windowSize.x, windowSize.y);
 	glutCreateWindow("a");
+	int result = texFromBPM("unity_chan.bmp");
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);
