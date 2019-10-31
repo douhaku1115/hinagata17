@@ -19,21 +19,21 @@ int texFromBPM(const char* _fileName) {
 	printf("biWidth: %d biHeight : %d\n", bi.biWidth, bi.biHeight);
 	printf("biCount: %d ", bi.biBitCount);
 	typedef struct {
-		unsigned char r, g, b, a;
+		unsigned char r, g, b;
 
-	}RGBA;
-	RGBA *pixels = (RGBA*)malloc(sizeof RGBA * bi.biWidth * bi.biHeight);
-	fread(pixels, sizeof(RGBA), bi.biWidth* bi.biHeight,pFile);
+	}RGB;
+	RGB *pixels = (RGB*)malloc(sizeof RGB * bi.biWidth * bi.biHeight);
+	fread(pixels, sizeof(RGB), bi.biWidth* bi.biHeight,pFile);
 
 	//GLint param);
 	glTexImage2D(
 		GL_TEXTURE_2D,	//GLenum target,
 		0,	//GLint level, 
-		GL_RGBA,	//GLint internalformat, 
+		GL_RGB,	//GLint internalformat, 
 		bi.biWidth,	//GLsizei width, 
 		bi.biHeight,	//GLsizei height, 
 		0,	//GLint border, 
-		GL_RGBA,	//GLenum format, 
+		GL_RGB,	//GLenum format, 
 		GL_UNSIGNED_BYTE,	//GLenum type, 
 		pixels);//const GLvoid * pixels););
 	glTexParameteri(
