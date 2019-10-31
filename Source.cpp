@@ -36,7 +36,7 @@ void display(void) {
 	
 	glEnable(GL_TEXTURE_2D);  //GLenum cap);
 	      
-	Rect rect = { {0,0},{448,256} };
+	Rect rect = { {0,0},vec2(448,256)*2.f };
 	rect.draw();
 
 	fontBegin();

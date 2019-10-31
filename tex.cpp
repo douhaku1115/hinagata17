@@ -25,6 +25,21 @@ int texFromBPM(const char* _fileName) {
 	RGB *pixels = (RGB*)malloc(sizeof RGB * bi.biWidth * bi.biHeight);
 	fread(pixels, sizeof(RGB), bi.biWidth* bi.biHeight,pFile);
 
+	for (int y=0;y<bi.biHeight;y++)
+		for (int x = 0; x < bi.biWidth; x++) {
+			RGB* pPixel = &pixels[y * bi.biWidth + x];
+			unsigned char temp = pPixel->r;
+			pPixel->r = pPixel->b;
+			pPixel->b = temp;
+		}
+	for (int y = 0; y < bi.biHeight/2; y++)
+		for (int x = 0; x < bi.biWidth; x++) {
+			RGB* pPixel0 = &pixels[y * bi.biWidth + x];
+			RGB* pPixel1 = &pixels[(bi.biHeight - 1 - y) * bi.biWidth + x];
+			RGB temp = *pPixel0;
+			*pPixel0 = *pPixel1;
+			*pPixel1 = temp;
+		}
 	//GLint param);
 	glTexImage2D(
 		GL_TEXTURE_2D,	//GLenum target,
