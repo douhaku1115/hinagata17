@@ -40,9 +40,12 @@ void display(void) {
 	rect.draw();
 
 	fontBegin();
-	fontSetHeight(FONT_DEFAULT_HEIGHT);
-	fontSetPosition(0, 0 );
-	//fontDraw("A");
+	fontHeight(FONT_DEFAULT_HEIGHT);
+	fontWeight(fontGetWeightMax());
+	fontPosition(0, 0 );
+	fontDraw("abc\n"); fontDraw("def");
+	fontPosition(0, fontGetHeight());
+	//fontDraw("123"); fontDraw("456");
 	fontEnd();
 
 	glutSwapBuffers();

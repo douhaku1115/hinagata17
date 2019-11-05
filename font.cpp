@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include "font.h"
-
+#define FONT GLUT_STROKE_ROMAN
 using namespace glm;
 
 static float weight=1;
 static vec2 position;
+static vec2 origin;
 static float height = FONT_DEFAULT_HEIGHT;
 static unsigned char color[3];
 
@@ -36,14 +37,21 @@ void fontEnd() {
 	glPopAttrib();
 }
 
-void fontSetPosition(float _x, float _y) {
-	position = vec2(_x, _y);
+void fontPosition(float _x, float _y) {
+	origin=position = vec2(_x, _y);
 }
-void fontSetHeight(float _height) {
+void fontHeight(float _height) {
 	height = _height;
 }
 float fontGetHeight() {
 	return height;
+}
+float fontGetWidth(int _character) {
+	return  glutStrokeWidth(
+		FONT,	        //void *font,
+		_character	    //int character);
+	)
+		* height / FONT_DEFAULT_HEIGHT;
 }
 
 float fontGetWeightMin() {
@@ -57,7 +65,7 @@ float fontGetWeightMax() {
 	return weight[1];
 }
 
-void fontSetWeight(float _weight) {
+void fontWeight(float _weight) {
 	weight = _weight;
 
 }
@@ -81,18 +89,23 @@ void fontDraw(const char *_format, ...) {
 	//glColor3ub(color[0], color[1], color[2]);
 	
 	char* p = str;
-	glPushMatrix();
-	{
-		glTranslatef(position.x,position.y+ height, 0);
-		float s = height / FONT_DEFAULT_HEIGHT;
-		glScalef(s,-s,s);
-		for (; (*p != '\0')&& (*p != '\n'); p++)
-			glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, *p);
+		
+		for (; (*p != '\0') && (*p != '\n'); p++) {
+			glPushMatrix();
+			{
+				glTranslatef(position.x, position.y + height, 0);
+				float s = height / FONT_DEFAULT_HEIGHT;
+				glScalef(s, -s, s);
+				glutStrokeCharacter(FONT, *p);
+				position.x += fontGetWidth(*p);
+			}
+			glPopMatrix();
 		}
-	glPopMatrix();
 
 	if (*p == '\n') {
-		glTranslatef(0, height + weight*2, 0);
+		position.x = origin.x;
+		position.y += height + weight * 2;
+		//glTranslatef(0, height + weight*2, 0);
 		fontDraw(++p);
 	}
 }

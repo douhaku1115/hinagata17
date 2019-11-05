@@ -13,7 +13,7 @@ int texFromBPM(const char* _fileName) {
 	printf("%s open \n", _fileName);
 	BITMAPFILEHEADER bf;
 	fread(&bf, sizeof(BITMAPFILEHEADER), 1, pFile);
-	//printf("bfSize :%d\n", bf.bfSize);
+	printf("bfSize :%d\n", bf.bfSize);
 	BITMAPINFOHEADER bi;
 	fread(&bi, sizeof(BITMAPINFOHEADER), 1, pFile);
 	printf("biWidth: %d biHeight : %d\n", bi.biWidth, bi.biHeight);
