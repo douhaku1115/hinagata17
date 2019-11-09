@@ -54,12 +54,21 @@ void fontHeight(float _height) {
 float fontGetHeight() {
 	return height;
 }
+float fontGetLineHeight() {
+	return height * 1.5f;
+
+}
 float fontGetWidth(int _character) {
 	return  glutStrokeWidth(
 		font,	        //void *font,
-		_character	    //int character);
-	)
+		_character	)    //int character);
 		* height / FONT_DEFAULT_HEIGHT;
+}
+float fontGetLenght(const unsigned char* _string) {
+	return glutStrokeLength(
+		font,//void* font,
+		_string//const unsigned char* string);
+	) * height / FONT_DEFAULT_HEIGHT;
 }
 
 float fontGetWeightMin() {
@@ -112,7 +121,7 @@ void fontDraw(const char *_format, ...) {
 
 	if (*p == '\n') {
 		position.x = origin.x;
-		position.y += height + weight * 2;
+		position.y += fontGetLineHeight();
 		//glTranslatef(0, height + weight*2, 0);
 		fontDraw(++p);
 	}

@@ -16,7 +16,9 @@ void fontFont(int _font);
 void fontPosition(float _x, float _y);
 void fontHeight(float _size);
 float fontGetWidth(int _character);
+float fontGetLenght(const unsigned char* _string);
 float fontGetHeight();
+float fontGetLineHeight();
 float fontGetWeight();
 
 float fontGetWeightMin();
