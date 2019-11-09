@@ -5,9 +5,14 @@
 #include "glm/glm.hpp"
 
 #define FONT_DEFAULT_HEIGHT (100.f)
+enum {
+	FONT_FONT_ROMAN,
+	FONT_FONT_MONO_ROMAN,
+	FONT_FONT_MAX
+};
 void fontBegin();
 void fontEnd();
-
+void fontFont(int _font);
 void fontPosition(float _x, float _y);
 void fontHeight(float _size);
 float fontGetWidth(int _character);

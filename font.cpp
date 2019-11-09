@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include "font.h"
-#define FONT GLUT_STROKE_ROMAN
+
+static void* font = GLUT_STROKE_ROMAN;
 using namespace glm;
 
 static float weight=1;
@@ -36,7 +37,14 @@ void fontEnd() {
 	glPopMatrix();
 	glPopAttrib();
 }
+void fontFont(int _font) {
+	switch (_font) {
+	case FONT_FONT_ROMAN: font = GLUT_STROKE_ROMAN; break;
+	case FONT_FONT_MONO_ROMAN: font = GLUT_STROKE_MONO_ROMAN; break;
 
+
+	}
+}
 void fontPosition(float _x, float _y) {
 	origin=position = vec2(_x, _y);
 }
@@ -48,7 +56,7 @@ float fontGetHeight() {
 }
 float fontGetWidth(int _character) {
 	return  glutStrokeWidth(
-		FONT,	        //void *font,
+		font,	        //void *font,
 		_character	    //int character);
 	)
 		* height / FONT_DEFAULT_HEIGHT;
@@ -96,7 +104,7 @@ void fontDraw(const char *_format, ...) {
 				glTranslatef(position.x, position.y + height, 0);
 				float s = height / FONT_DEFAULT_HEIGHT;
 				glScalef(s, -s, s);
-				glutStrokeCharacter(FONT, *p);
+				glutStrokeCharacter(font, *p);
 				position.x += fontGetWidth(*p);
 			}
 			glPopMatrix();

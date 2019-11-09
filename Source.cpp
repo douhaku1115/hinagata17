@@ -43,7 +43,10 @@ void display(void) {
 	fontHeight(FONT_DEFAULT_HEIGHT);
 	fontWeight(fontGetWeightMax());
 	fontPosition(0, 0 );
-	fontDraw("abc\n"); fontDraw("def");
+	fontFont(FONT_FONT_ROMAN);
+	fontDraw("0123abc\n"); //fontDraw("def");
+	fontFont(FONT_FONT_MONO_ROMAN);
+	fontDraw("0123abc\n");
 	fontPosition(0, fontGetHeight());
 	//fontDraw("123"); fontDraw("456");
 	fontEnd();
