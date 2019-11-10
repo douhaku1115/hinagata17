@@ -14,6 +14,7 @@ enum {
 void fontBegin();
 void fontEnd();
 void fontFont(int _font);
+void fontScreenSize(float _width, float _height);
 void fontPosition(float _x, float _y);
 void fontHeight(float _size);
 float fontGetWidth(int _character);

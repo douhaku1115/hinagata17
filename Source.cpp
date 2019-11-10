@@ -8,18 +8,17 @@
 #include "VerticalPaddle.h"
 #include "audio.h"
 #include "Rect.h"
-
-
 #include "tex.h"
+#define SCREEN_WIDTH 256
+#define SCREEN_HEIGHT 256
+
 using namespace glm;
 #define BALL_MAX 2
-ivec2 windowSize = { 800, 600 };
 
 bool keys[256];
 VerticalPaddle paddle;
 Ball balls[BALL_MAX];
 Rect rect1 = Rect(vec2(100, 100), vec2(100, 200));
-Rect rect2 = Rect(vec2(windowSize.x/2, windowSize.y / 2), vec2(200, 100));
 
 void display(void) {
 	
@@ -28,25 +27,37 @@ void display(void) {
 	glLoadIdentity();
 	gluOrtho2D(
 		0,//GLdouble left,
-		windowSize.x,//GLdouble right,
-		windowSize.y,	//GLdouble bottom,
+		SCREEN_WIDTH,//GLdouble right,
+		SCREEN_HEIGHT,	//GLdouble bottom,
 		0);	//GLdouble top);
 	glMatrixMode(GL_MODELVIEW);//GLenum mode
 	glLoadIdentity();
 	
 	glEnable(GL_TEXTURE_2D);  //GLenum cap);
 	      
-	Rect rect = { {0,0},vec2(448,256)*2.f };
-	rect.draw();
+	//Rect rect = { {0,0},vec2(448,256)*2.f };
+	//rect.draw();
 
+	int s = 8;
+	for (int i=0;i<SCREEN_HEIGHT/s;i++)
+		for (int j = 0; j < SCREEN_WIDTH / s; j++) {
+			glColor3ub(
+				0xff-0xff*j /(SCREEN_WIDTH/s-1),
+				0xff * j / (SCREEN_WIDTH / s - 1),
+				0x00);
+			glRectfv(
+				(GLfloat*)&vec2(j * s, i * s),
+				(GLfloat*)&(vec2(j * s, i * s) + vec2(s - 1, s - 1)));
+		
+	}
+	fontScreenSize(256 * 2, 256 * 2);
 	fontBegin();
-	//fontHeight(FONT_DEFAULT_HEIGHT/2);
+	fontHeight(FONT_DEFAULT_HEIGHT);
 	fontWeight(fontGetWeightMax());
-	//fontFont(FONT_FONT_ROMAN);
-	
+	fontFont(FONT_FONT_ROMAN);
 	fontPosition(0,0);
+	glColor3ub(0xff, 0xff, 0xff);
 	fontDraw("012345\n");
-	fontDraw("abcjgpqy\n");
 	fontDraw("ABCDEF\n");
 	fontEnd();
 
@@ -55,7 +66,7 @@ void display(void) {
 
 void idle(void){
 	audioUpdate();
-	for (int i = 0; i < BALL_MAX; i++){
+	/*for (int i = 0; i < BALL_MAX; i++){
 		balls[i].update();
 
 		if (paddle.intersectBall(balls[i])) {
@@ -79,7 +90,7 @@ void idle(void){
 			balls[i].m_position = balls[i].m_lastPosition;
 			balls[i].m_speed.x = fabs(balls[i].m_speed.x);
 		}
-	}
+	}*/
 	float f = 2;
 	if (keys['w']) rect1.m_position.y -= f;
 	if (keys['s']) rect1.m_position.y += f;
@@ -96,9 +107,7 @@ void reshape(int width, int height) {
 	printf("rehape:width:%d height:%d\n",width,height);
 	glViewport(0,0,width,height);
 	//GLint x, GLint y, GLsizei width, GLsizei height);
-	windowSize = ivec2(width, height);
-	
-}
+	}
 void keyboard(unsigned char key, int x, int y) {
 	if (key == 0x1b)
 		exit(0);
@@ -124,9 +133,13 @@ int main(int argc, char* argv[]) {
 
 	glutInitDisplayMode(GL_DOUBLE);
 	glutInitWindowPosition(640,0);
-	glutInitWindowSize(windowSize.x, windowSize.y);
+	{
+		int height = 720;
+		int width = 720*4/3;
+		glutInitWindowSize(width, height);
+	}
 	glutCreateWindow("a");
-	int result = texFromBPM("unity_chan.bmp");
+	//int result = texFromBPM("unity_chan.bmp");
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);

@@ -5,7 +5,7 @@
 
 static void* font = GLUT_STROKE_ROMAN;
 using namespace glm;
-
+static vec2 screenSize = { 256,256 };
 static float weight=1;
 static vec2 position;
 static vec2 origin;
@@ -19,13 +19,11 @@ void fontBegin() {
 	glMatrixMode(GL_PROJECTION);//(GLenum mode);
 	glLoadIdentity();
 
-	GLint viewport[4];
-	glGetIntegerv(GL_VIEWPORT,viewport);//GLenum pname, GLint *params);
 	
 	gluOrtho2D(
 		0,//GLdouble left,
-		viewport[2],//GLdouble right,
-		viewport[3],	//GLdouble bottom,
+		screenSize.x,//GLdouble right,
+		screenSize.y,	//GLdouble bottom,
 		0);	//GLdouble top);
 	glMatrixMode(GL_MODELVIEW);//GLenum mode
 	glLoadIdentity();
@@ -44,6 +42,9 @@ void fontFont(int _font) {
 
 
 	}
+}
+void fontScreenSize(float _width, float _height) {
+	screenSize = vec2(_width, _height);
 }
 void fontPosition(float _x, float _y) {
 	origin=position = vec2(_x, _y);
