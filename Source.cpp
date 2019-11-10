@@ -40,16 +40,14 @@ void display(void) {
 	rect.draw();
 
 	fontBegin();
-	fontHeight(FONT_DEFAULT_HEIGHT/2);
-	fontWeight(fontGetWeightMax()/2);
-	fontFont(FONT_FONT_ROMAN);
-	char str[] = "abcdefgABCDEFG";
-	float x = 0, y = 0, h = fontGetLineHeight();
-	fontPosition(x, y);
-	fontDraw(str);
+	//fontHeight(FONT_DEFAULT_HEIGHT/2);
+	fontWeight(fontGetWeightMax());
+	//fontFont(FONT_FONT_ROMAN);
 	
-	fontPosition(x,y+=h);
-	fontDraw("Lenght:%d",(int)fontGetLenght((unsigned char*)str));
+	fontPosition(0,0);
+	fontDraw("012345\n");
+	fontDraw("abcjgpqy\n");
+	fontDraw("ABCDEF\n");
 	fontEnd();
 
 	glutSwapBuffers();

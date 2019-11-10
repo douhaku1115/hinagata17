@@ -4,7 +4,8 @@
 #include "glut.h"
 #include "glm/glm.hpp"
 
-#define FONT_DEFAULT_HEIGHT (100.f)
+#define FONT_DEFAULT_HEIGHT (119.05f)
+#define FONT_DEFAULT_LINE_SPACE (33.33f) 
 enum {
 	FONT_FONT_ROMAN,
 	FONT_FONT_MONO_ROMAN,

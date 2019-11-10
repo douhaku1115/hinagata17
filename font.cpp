@@ -55,8 +55,8 @@ float fontGetHeight() {
 	return height;
 }
 float fontGetLineHeight() {
-	return height * 1.5f;
-
+	return height +FONT_DEFAULT_LINE_SPACE* 
+		height/ FONT_DEFAULT_HEIGHT;
 }
 float fontGetWidth(int _character) {
 	return  glutStrokeWidth(
