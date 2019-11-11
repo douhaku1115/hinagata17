@@ -34,31 +34,19 @@ void display(void) {
 	glLoadIdentity();
 	
 	glEnable(GL_TEXTURE_2D);  //GLenum cap);
-	      
-	//Rect rect = { {0,0},vec2(448,256)*2.f };
-	//rect.draw();
-
-	int s = 8;
-	for (int i=0;i<SCREEN_HEIGHT/s;i++)
-		for (int j = 0; j < SCREEN_WIDTH / s; j++) {
-			glColor3ub(
-				0xff-0xff*j /(SCREEN_WIDTH/s-1),
-				0xff * j / (SCREEN_WIDTH / s - 1),
-				0x00);
-			glRectfv(
-				(GLfloat*)&vec2(j * s, i * s),
-				(GLfloat*)&(vec2(j * s, i * s) + vec2(s - 1, s - 1)));
-		
-	}
-	fontScreenSize(256 * 2, 256 * 2);
+	glEnable(GL_BLEND);
+	glBlendFunc(
+		GL_SRC_ALPHA,//(GLenum sfactor,
+		GL_ONE_MINUS_DST_ALPHA);//GLenum dfactor);
+	
 	fontBegin();
 	fontHeight(FONT_DEFAULT_HEIGHT);
 	fontWeight(fontGetWeightMax());
 	fontFont(FONT_FONT_ROMAN);
 	fontPosition(0,0);
 	glColor3ub(0xff, 0xff, 0xff);
-	fontDraw("012345\n");
-	fontDraw("ABCDEF\n");
+	//fontDraw("012345\n");
+	//fontDraw("ABCDEF\n");
 	fontEnd();
 
 	glutSwapBuffers();
@@ -139,7 +127,7 @@ int main(int argc, char* argv[]) {
 		glutInitWindowSize(width, height);
 	}
 	glutCreateWindow("a");
-	//int result = texFromBPM("unity_chan.bmp");
+	
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);
