@@ -39,6 +39,8 @@ void display(void) {
 		GL_SRC_ALPHA,//(GLenum sfactor,
 		GL_ONE_MINUS_DST_ALPHA);//GLenum dfactor);
 	
+	Rect(vec2(128, 128)).draw();
+
 	fontBegin();
 	fontHeight(FONT_DEFAULT_HEIGHT);
 	fontWeight(fontGetWeightMax());
@@ -127,7 +129,7 @@ int main(int argc, char* argv[]) {
 		glutInitWindowSize(width, height);
 	}
 	glutCreateWindow("a");
-	
+	//texFromBPM("test1.bmp");
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);

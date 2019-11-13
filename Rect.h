@@ -12,6 +12,7 @@ struct Rect {
 	bool isDead
 		;
 	Rect();
+	Rect( vec2 const& _size);
 	Rect(vec2 const& _position, vec2 const& _size);
 	void draw();
 	bool intersect(vec2 const& _point);
